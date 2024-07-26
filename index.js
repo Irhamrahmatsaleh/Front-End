@@ -1,23 +1,71 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
-import { RouterProvider } from 'react-router-dom';
-import router from './routes';
-import { Provider  } from 'react-redux';
-import { store } from './store/store';
+import { createBrowserRouter } from 'react-router-dom'
+import App from '../App'
+import Home from '../pages/Home'
+import Login from '../pages/Login'
+import ForgotPassowrd from '../pages/ForgotPassowrd'
+import SignUp from '../pages/SignUp'
+import AdminPanel from '../pages/AdminPanel'
+import AllUsers from '../pages/AllUsers'
+import AllProducts from '../pages/AllProducts'
+import CategoryProduct from '../pages/CategoryProduct'
+import ProductDetails from '../pages/ProductDetails'
+import Cart from '../pages/Cart'
+import SearchProduct from '../pages/SearchProduct'
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
-  // <React.StrictMode>
-    <Provider store={store}>
-      <RouterProvider router={router}/>
-    </Provider>
-  // </React.StrictMode>
-);
+const router = createBrowserRouter([
+    {
+        path : "/",
+        element : <App/>,
+        children : [
+            {
+                path : "",
+                element : <Home/>
+            },
+            {
+                path : "login",
+                element : <Login/>
+            },
+            {
+                path : "forgot-password",
+                element : <ForgotPassowrd/>
+            },
+            {
+                path : "sign-up",
+                element : <SignUp/>
+            },
+            {
+                path : "product-category",
+                element : <CategoryProduct/>
+            },
+            {
+                path : "product/:id",
+                element : <ProductDetails/>
+            },
+            {
+                path : 'cart',
+                element : <Cart/>
+            },
+            {
+                path : "search",
+                element : <SearchProduct/>
+            },
+            {
+                path : "admin-panel",
+                element : <AdminPanel/>,
+                children : [
+                    {
+                        path : "all-users",
+                        element : <AllUsers/>
+                    },
+                    {
+                        path : "all-products",
+                        element : <AllProducts/>
+                    }
+                ]
+            },
+        ]
+    }
+])
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+
+export default router
